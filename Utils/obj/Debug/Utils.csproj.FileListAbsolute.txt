@@ -1,0 +1,6 @@
+E:\SourceSample\TestProject\Utils\bin\Debug\Utils.dll
+E:\SourceSample\TestProject\Utils\bin\Debug\Utils.pdb
+E:\SourceSample\TestProject\Utils\obj\Debug\Utils.csproj.AssemblyReference.cache
+E:\SourceSample\TestProject\Utils\obj\Debug\Utils.csproj.CoreCompileInputs.cache
+E:\SourceSample\TestProject\Utils\obj\Debug\Utils.dll
+E:\SourceSample\TestProject\Utils\obj\Debug\Utils.pdb

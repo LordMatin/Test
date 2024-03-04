@@ -1,0 +1,15 @@
+E:\SourceSample\TestProject\Services\bin\Debug\Services.dll
+E:\SourceSample\TestProject\Services\bin\Debug\Services.pdb
+E:\SourceSample\TestProject\Services\obj\Debug\Service.csproj.AssemblyReference.cache
+E:\SourceSample\TestProject\Services\obj\Debug\Service.csproj.CoreCompileInputs.cache
+E:\SourceSample\TestProject\Services\obj\Debug\Services.dll
+E:\SourceSample\TestProject\Services\obj\Debug\Services.pdb
+E:\SourceSample\TestProject\Services\bin\Debug\DataAccess.dll
+E:\SourceSample\TestProject\Services\bin\Debug\EntityFramework.dll
+E:\SourceSample\TestProject\Services\bin\Debug\DataAccess.pdb
+E:\SourceSample\TestProject\Services\bin\Debug\DataAccess.dll.config
+E:\SourceSample\TestProject\Services\bin\Debug\EntityFramework.xml
+E:\SourceSample\TestProject\Services\obj\Debug\Service.csproj.CopyComplete
+E:\SourceSample\TestProject\Services\bin\Debug\Services.dll.config
+E:\SourceSample\TestProject\Services\bin\Debug\EntityFramework.SqlServer.dll
+E:\SourceSample\TestProject\Services\bin\Debug\EntityFramework.SqlServer.xml

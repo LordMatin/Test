@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="flightscheduleModelStoreContainer" CdmEntityContainer="flightscheduleEntities1">
+    <EntitySetMapping Name="flights">
+      <EntityTypeMapping TypeName="flightscheduleModel.flights">
+        <MappingFragment StoreEntitySet="flights">
+          <ScalarProperty Name="flight_id" ColumnName="flight_id" />
+          <ScalarProperty Name="route_id" ColumnName="route_id" />
+          <ScalarProperty Name="departure_time" ColumnName="departure_time" />
+          <ScalarProperty Name="arrival_time" ColumnName="arrival_time" />
+          <ScalarProperty Name="airline_id" ColumnName="airline_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="routes">
+      <EntityTypeMapping TypeName="flightscheduleModel.routes">
+        <MappingFragment StoreEntitySet="routes">
+          <ScalarProperty Name="route_id" ColumnName="route_id" />
+          <ScalarProperty Name="origin_city_id" ColumnName="origin_city_id" />
+          <ScalarProperty Name="destination_city_id" ColumnName="destination_city_id" />
+          <ScalarProperty Name="departure_date" ColumnName="departure_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subscriptions">
+      <EntityTypeMapping TypeName="flightscheduleModel.subscriptions">
+        <MappingFragment StoreEntitySet="subscriptions">
+          <ScalarProperty Name="agency_id" ColumnName="agency_id" />
+          <ScalarProperty Name="origin_city_id" ColumnName="origin_city_id" />
+          <ScalarProperty Name="destination_city_id" ColumnName="destination_city_id" />
+          <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

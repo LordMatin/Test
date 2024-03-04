@@ -1,0 +1,15 @@
+E:\SourceSample\TestProject\DataAccess\bin\Debug\DataAccess.dll.config
+E:\SourceSample\TestProject\DataAccess\bin\Debug\DataAccess.dll
+E:\SourceSample\TestProject\DataAccess\bin\Debug\DataAccess.pdb
+E:\SourceSample\TestProject\DataAccess\bin\Debug\EntityFramework.dll
+E:\SourceSample\TestProject\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+E:\SourceSample\TestProject\DataAccess\bin\Debug\EntityFramework.xml
+E:\SourceSample\TestProject\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.dll
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.pdb
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.Migrations.Create_DataBase.resources
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.GenerateResource.cache
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.Migrations.updateflightcol.resources

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="flightscheduleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="flights">
+    <Key>
+      <PropertyRef Name="flight_id" />
+    </Key>
+    <Property Name="flight_id" Type="Int64" Nullable="false" />
+    <Property Name="route_id" Type="Int64" Nullable="false" />
+    <Property Name="departure_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="arrival_time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="airline_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="routes" Relationship="Self.FK_flights_routes" FromRole="flights" ToRole="routes" />
+  </EntityType>
+  <EntityType Name="routes">
+    <Key>
+      <PropertyRef Name="route_id" />
+    </Key>
+    <Property Name="route_id" Type="Int64" Nullable="false" />
+    <Property Name="origin_city_id" Type="Int64" Nullable="false" />
+    <Property Name="destination_city_id" Type="Int64" Nullable="false" />
+    <Property Name="departure_date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="flights" Relationship="Self.FK_flights_routes" FromRole="routes" ToRole="flights" />
+  </EntityType>
+  <EntityType Name="subscriptions">
+    <Key>
+      <PropertyRef Name="subscription_id" />
+    </Key>
+    <Property Name="agency_id" Type="Int64" Nullable="false" />
+    <Property Name="origin_city_id" Type="Int64" Nullable="false" />
+    <Property Name="destination_city_id" Type="Int64" Nullable="false" />
+    <Property Name="subscription_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <Association Name="FK_flights_routes">
+    <End Role="routes" Type="Self.routes" Multiplicity="1" />
+    <End Role="flights" Type="Self.flights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="routes">
+        <PropertyRef Name="route_id" />
+      </Principal>
+      <Dependent Role="flights">
+        <PropertyRef Name="route_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="flightscheduleEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="flights" EntityType="Self.flights" />
+    <EntitySet Name="routes" EntityType="Self.routes" />
+    <EntitySet Name="subscriptions" EntityType="Self.subscriptions" />
+    <AssociationSet Name="FK_flights_routes" Association="Self.FK_flights_routes">
+      <End Role="routes" EntitySet="routes" />
+      <End Role="flights" EntitySet="flights" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

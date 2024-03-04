@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="flightscheduleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="flights">
+    <Key>
+      <PropertyRef Name="flight_id" />
+    </Key>
+    <Property Name="flight_id" Type="bigint" Nullable="false" />
+    <Property Name="route_id" Type="bigint" Nullable="false" />
+    <Property Name="departure_time" Type="datetime" Nullable="false" />
+    <Property Name="arrival_time" Type="datetime" Nullable="false" />
+    <Property Name="airline_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="routes">
+    <Key>
+      <PropertyRef Name="route_id" />
+    </Key>
+    <Property Name="route_id" Type="bigint" Nullable="false" />
+    <Property Name="origin_city_id" Type="bigint" Nullable="false" />
+    <Property Name="destination_city_id" Type="bigint" Nullable="false" />
+    <Property Name="departure_date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="subscriptions">
+    <Key>
+      <PropertyRef Name="subscription_id" />
+    </Key>
+    <Property Name="agency_id" Type="bigint" Nullable="false" />
+    <Property Name="origin_city_id" Type="bigint" Nullable="false" />
+    <Property Name="destination_city_id" Type="bigint" Nullable="false" />
+    <Property Name="subscription_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_flights_routes">
+    <End Role="routes" Type="Self.routes" Multiplicity="1" />
+    <End Role="flights" Type="Self.flights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="routes">
+        <PropertyRef Name="route_id" />
+      </Principal>
+      <Dependent Role="flights">
+        <PropertyRef Name="route_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="flightscheduleModelStoreContainer">
+    <EntitySet Name="flights" EntityType="Self.flights" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="routes" EntityType="Self.routes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="subscriptions" EntityType="Self.subscriptions" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_flights_routes" Association="Self.FK_flights_routes">
+      <End Role="routes" EntitySet="routes" />
+      <End Role="flights" EntitySet="flights" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
