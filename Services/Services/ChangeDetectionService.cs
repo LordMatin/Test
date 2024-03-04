@@ -50,6 +50,11 @@ namespace Services.Services
                       route_id = x.JoinTblFlightRoute.TblFlight.route_id,
                   }).ToList();
 
+
+
+
+
+
             foreach (var item in lstflight)
             {
                 result.Add(new ResultModel
@@ -60,7 +65,7 @@ namespace Services.Services
                     departure_time = item.departure_time,
                     arrival_time = item.arrival_time,
                     airline_id = item.airline_id,
-                    status = Changedetectionstatus(item.departure_time,item.airline_id ,lstflight)
+                    status = Changedetectionstatus(item.departure_time, item.airline_id, lstflight)
 
                 });
 
@@ -83,16 +88,6 @@ namespace Services.Services
             var CountDepartureTimeNextweek = _lst.Where(cdt => cdt.departure_time == Nextsevendays)
                                     .ToList()
                                     .Where(cdt => cdt.airline_id == airline_id && (cdt.departure_time.ToLongTimeString() == NextMin || cdt.departure_time.ToLongTimeString() == LastMin)).Count();
-
-
-            //var CountDepartureTimeLastweek = _lst.Where(cdt => cdt.departure_time == Lastsevendays &&
-            //                        (cdt.departure_time.ToLongTimeString() == NextMin || cdt.departure_time.ToLongTimeString() == LastMin) &&
-            //                        cdt.airline_id == airline_id
-            //                        ).Count();
-
-            //var CountDepartureTimeNextweek = _lst.Where(cdt => cdt.departure_time == Nextsevendays &&
-            //                        (cdt.departure_time.ToLongTimeString() == NextMin || cdt.departure_time.ToLongTimeString() == LastMin) &&
-            //                        cdt.airline_id == airline_id).Count();
 
             if (CountDepartureTimeLastweek == 0)
                 return "New flights";

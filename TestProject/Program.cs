@@ -1,11 +1,15 @@
-﻿using DataAccess.Context;
+﻿using CsvHelper;
+using DataAccess.Context;
 using Services.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils.Helper;
 
 namespace TestProject
 {
@@ -17,8 +21,6 @@ namespace TestProject
             try
             {
                 ChangeDetectionService m = new ChangeDetectionService();
-                //string start = "10-10-2016";
-                //string End = "20-10-2016";
                 DateTime startdateVal = Convert.ToDateTime(args[0]);
                 DateTime EnddateVal = DateTime.Parse(args[1]);
                 Int64 agencyid=Convert.ToInt64(args[2]);
@@ -28,16 +30,14 @@ namespace TestProject
                     Console.ReadKey();
                     return;
                 }
-                var r = m.checkSitauts(startdateVal, EnddateVal, agencyid);
-                var result = string.Empty;
-                foreach (var t in r.Take(100))
-                {
-
-                    result += string.Format("Flightid:{0},AirLineId:{1},OrginCityId:{2},DestintionCityId:{3},Stauts:{4}", t.flight_id
-                   , t.airline_id, t.origin_city_id, t.destination_city_id, t.status);
-                    result += "\n";
-                }
-                Console.WriteLine(result);
+                var startTime = DateTime.Now;
+                Console.WriteLine("Start Progress Time :"+ startTime +"\n"+"The Change Detection Algorithm is in progress ..... "+"\n");
+                var checkSitauts = m.checkSitauts(startdateVal, EnddateVal, agencyid);
+                CSVHelper.WriteCsv(checkSitauts);
+                var EndTime = DateTime.Now;
+                var DoneTime = EndTime - startTime;
+                Console.WriteLine("End Progress Time :" + EndTime + "\n" + "The Reuslt Write on Resultdata.csv And Location on(\\bin\\Debug) Folder ..... " + "\n");
+                Console.WriteLine("Done Time :" + DoneTime + "\n");
                 Console.ReadKey();
             }
             catch (Exception ex)

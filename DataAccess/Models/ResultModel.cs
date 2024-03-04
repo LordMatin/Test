@@ -15,7 +15,13 @@ namespace DataAccess.Models
         public DateTime arrival_time { get; set; }
         public Int64 airline_id { get; set; }
         public string status { get; set; }
+        public string ErrorText { get; set; }
 
+        public void NormalizeData()
+        {
+            if (!string.IsNullOrEmpty(ErrorText))
+                ErrorText = System.Text.RegularExpressions.Regex.Replace(ErrorText, @"\s+", " ").Replace(',', ' ');
 
+        }
     }
 }

@@ -21,6 +21,15 @@ namespace DataAccess.Context
             this.Configuration.AutoDetectChangesEnabled = false;
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<Flight>().Property(e => e.route_id.route_id).IsOptional();
+
+            //// Disable lazy loading
+            //this.Configuration.LazyLoadingEnabled = false;
+        }
         public DbSet<Flight> Flights { get; set; }   
         public DbSet<Route> Routes { get; set; }   
         public DbSet<Subscription> Subscriptions { get; set; }
