@@ -22,8 +22,6 @@ namespace Models.routes
         [Required]
 
         public DateTime departure_date { get; set; }
-        [Required]
 
-        public ICollection<Flight> Flights { get; set; }
     }
 }

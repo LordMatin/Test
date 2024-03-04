@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Create_DataBase : DbMigration
+    public partial class createDb2 : DbMigration
     {
         public override void Up()
         {
@@ -15,11 +15,11 @@
                         departure_time = c.DateTime(nullable: false),
                         arrival_time = c.DateTime(nullable: false),
                         airline_id = c.Long(nullable: false),
-                        routes_route_id = c.Long(nullable: false),
+                        route_id = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.flight_id)
-                .ForeignKey("dbo.Routes", t => t.routes_route_id, cascadeDelete: true)
-                .Index(t => t.routes_route_id);
+                .ForeignKey("dbo.Routes", t => t.route_id, cascadeDelete: true)
+                .Index(t => t.route_id);
             
             CreateTable(
                 "dbo.Routes",
@@ -47,8 +47,8 @@
         
         public override void Down()
         {
-            DropForeignKey("dbo.Flights", "routes_route_id", "dbo.Routes");
-            DropIndex("dbo.Flights", new[] { "routes_route_id" });
+            DropForeignKey("dbo.Flights", "route_id", "dbo.Routes");
+            DropIndex("dbo.Flights", new[] { "route_id" });
             DropTable("dbo.Subscriptions");
             DropTable("dbo.Routes");
             DropTable("dbo.Flights");

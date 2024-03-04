@@ -55,13 +55,9 @@
   <ItemGroup>
     <Compile Include="Context\MyDbContext.cs" />
     <Compile Include="Context\UnitOfWork.cs" />
-    <Compile Include="Migrations\202403020721113_Create_DataBase.cs" />
-    <Compile Include="Migrations\202403020721113_Create_DataBase.designer.cs">
-      <DependentUpon>202403020721113_Create_DataBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202403020728072_update-flightcol.cs" />
-    <Compile Include="Migrations\202403020728072_update-flightcol.designer.cs">
-      <DependentUpon>202403020728072_update-flightcol.cs</DependentUpon>
+    <Compile Include="Migrations\202403041249441_createDb2.cs" />
+    <Compile Include="Migrations\202403041249441_createDb2.designer.cs">
+      <DependentUpon>202403041249441_createDb2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\flights\Flight.cs" />
@@ -79,14 +75,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202403020721113_Create_DataBase.resx">
-      <DependentUpon>202403020721113_Create_DataBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403020728072_update-flightcol.resx">
-      <DependentUpon>202403020728072_update-flightcol.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202403041249441_createDb2.resx">
+      <DependentUpon>202403041249441_createDb2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

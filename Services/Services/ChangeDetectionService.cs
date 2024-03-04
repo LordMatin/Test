@@ -23,12 +23,10 @@ namespace Services.Services
         {
             List<ResultModel> result = new List<ResultModel>();
             BaseRepository<Flight> repository = new BaseRepository<Flight>(mydbcontext);
-            //var lstflight = repository.Get(x => x.route_id.departure_date >= startdate && x.route_id.departure_date <= enddate, null, "route_id");
-
             var lstflight = mydbcontext.Flights
                 .Join(
                        mydbcontext.Routes,
-                       f => f.route_id.route_id,
+                       f => f.route.route_id,
                        r => r.route_id,
                        (f, r) => new { TblFlight = f, tblRoute = r }
                 )
@@ -38,8 +36,8 @@ namespace Services.Services
                         s => new { s.origin_city_id, s.destination_city_id },
                         (f, s) => new { JoinTblFlightRoute = f, tblSubscription = s }
                   ).Where(x =>
-                  x.JoinTblFlightRoute.TblFlight.route_id.departure_date >= startdate &&
-                  x.JoinTblFlightRoute.TblFlight.route_id.departure_date <= enddate &&
+                  x.JoinTblFlightRoute.TblFlight.route.departure_date >= startdate &&
+                  x.JoinTblFlightRoute.TblFlight.route.departure_date <= enddate &&
                   x.tblSubscription.agency_id == agencyid
                   ).Select(x => new FlightDto
                   {
@@ -47,21 +45,16 @@ namespace Services.Services
                       departure_time = x.JoinTblFlightRoute.TblFlight.departure_time,
                       arrival_time = x.JoinTblFlightRoute.TblFlight.arrival_time,
                       airline_id = x.JoinTblFlightRoute.TblFlight.airline_id,
-                      route_id = x.JoinTblFlightRoute.TblFlight.route_id,
+                      route = x.JoinTblFlightRoute.TblFlight.route,
                   }).ToList();
-
-
-
-
-
 
             foreach (var item in lstflight)
             {
                 result.Add(new ResultModel
                 {
                     flight_id = item.flight_id,
-                    origin_city_id = item.route_id.origin_city_id,
-                    destination_city_id = item.route_id.destination_city_id,
+                    origin_city_id = item.route.origin_city_id,
+                    destination_city_id = item.route.destination_city_id,
                     departure_time = item.departure_time,
                     arrival_time = item.arrival_time,
                     airline_id = item.airline_id,
@@ -73,13 +66,12 @@ namespace Services.Services
             return result;
         }
 
-        public string Changedetectionstatus(DateTime departure_time,Int64 airline_id, List<FlightDto> _lst)
+        public string Changedetectionstatus(DateTime departure_time, Int64 airline_id, List<FlightDto> _lst)
         {
             DateTime Lastsevendays = departure_time.AddDays(-7);
             DateTime Nextsevendays = departure_time.AddDays(7);
             string NextMin = departure_time.AddMinutes(30).ToLongTimeString();
             string LastMin = departure_time.AddMinutes(-30).ToLongTimeString();
-
 
             var CountDepartureTimeLastweek = _lst.Where(cdt => cdt.departure_time == Lastsevendays)
                                     .ToList()
@@ -97,6 +89,6 @@ namespace Services.Services
                 return "regular";
         }
 
-      
+
     }
 }

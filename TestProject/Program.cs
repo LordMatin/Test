@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using DataAccess.Context;
+using DataAccess.Models;
 using Services.Services;
 using System;
 using System.Collections.Generic;
@@ -23,26 +24,32 @@ namespace TestProject
                 ChangeDetectionService m = new ChangeDetectionService();
                 DateTime startdateVal = Convert.ToDateTime(args[0]);
                 DateTime EnddateVal = DateTime.Parse(args[1]);
-                Int64 agencyid=Convert.ToInt64(args[2]);
-                if(startdateVal>EnddateVal)
+                Int64 agencyid = Convert.ToInt64(args[2]);
+                if (startdateVal > EnddateVal)
                 {
                     Console.WriteLine("The Start Date cant be Greate than End Date");
                     Console.ReadKey();
                     return;
                 }
                 var startTime = DateTime.Now;
-                Console.WriteLine("Start Progress Time :"+ startTime +"\n"+"The Change Detection Algorithm is in progress ..... "+"\n");
+                Console.WriteLine("Start Progress Time :" + startTime + "\n" + "The Change Detection Algorithm is in progress ..... " + "\n");
                 var checkSitauts = m.checkSitauts(startdateVal, EnddateVal, agencyid);
                 CSVHelper.WriteCsv(checkSitauts);
                 var EndTime = DateTime.Now;
                 var DoneTime = EndTime - startTime;
-                Console.WriteLine("End Progress Time :" + EndTime + "\n" + "The Reuslt Write on Resultdata.csv And Location on(\\bin\\Debug) Folder ..... " + "\n");
+                Console.WriteLine("Succssfully End Progress Time :" + EndTime + "\n" + "The Reuslt Write on Resultdata.csv And Location on(\\bin\\Debug) Folder ..... " + "\n");
                 Console.WriteLine("Done Time :" + DoneTime + "\n");
                 Console.ReadKey();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString()+"\n"+ ex.InnerException?.Message);
+                var log = new List<ResultModel>();
+                log.Add(new ResultModel
+                {
+                    Error = ex.Message,
+                });
+                Console.WriteLine("Error In Progress You can See more details on (\\bin\\Debug\\Resultdata.csv) Folder " + "\n");
+                CSVHelper.WriteCsv(log);
                 Console.ReadKey();
 
             }

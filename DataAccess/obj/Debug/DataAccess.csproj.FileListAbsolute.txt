@@ -10,6 +10,5 @@ E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileIn
 E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
 E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.dll
 E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.pdb
-E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.Migrations.Create_DataBase.resources
+E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.Migrations.createDb2.resources
 E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.csproj.GenerateResource.cache
-E:\SourceSample\TestProject\DataAccess\obj\Debug\DataAccess.Migrations.updateflightcol.resources

@@ -23,9 +23,11 @@ namespace Models.flights
         [Required]
 
         public Int64 airline_id { get; set; }
-        [Required]
 
-        public virtual Route route_id { get; set; }
+        [Required]
+        [ForeignKey("route")]
+        public Int64 route_id { get; set; }
+        public virtual Route route { get; set; }
     }
     public class FlightDto
     {
@@ -43,6 +45,6 @@ namespace Models.flights
         public Int64 airline_id { get; set; }
         [Required]
 
-        public virtual Route route_id { get; set; }
+        public virtual Route route { get; set; }
     }
 }
