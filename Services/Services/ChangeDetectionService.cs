@@ -47,7 +47,7 @@ namespace Services.Services
                       arrival_time = x.JoinTblFlightRoute.TblFlight.arrival_time,
                       airline_id = x.JoinTblFlightRoute.TblFlight.airline_id,
                       route = x.JoinTblFlightRoute.TblFlight.route,
-                  }).Take(10).ToList();
+                  }).ToList();
             try
             {
                 result = Changedetectionstatus(lstflight);
