@@ -5,6 +5,7 @@ using Models.flights;
 using Models.routes;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,47 +47,122 @@ namespace Services.Services
                       arrival_time = x.JoinTblFlightRoute.TblFlight.arrival_time,
                       airline_id = x.JoinTblFlightRoute.TblFlight.airline_id,
                       route = x.JoinTblFlightRoute.TblFlight.route,
-                  }).ToList();
-
-            foreach (var item in lstflight)
+                  }).Take(10).ToList();
+            try
             {
-                result.Add(new ResultModel
-                {
-                    flight_id = item.flight_id,
-                    origin_city_id = item.route.origin_city_id,
-                    destination_city_id = item.route.destination_city_id,
-                    departure_time = item.departure_time,
-                    arrival_time = item.arrival_time,
-                    airline_id = item.airline_id,
-                    status = Changedetectionstatus(item.departure_time, item.airline_id, lstflight)
-
-                });
-
+                result = Changedetectionstatus(lstflight);
+                return result;
             }
-            return result;
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
 
-        public string Changedetectionstatus(DateTime departure_time, Int64 airline_id, List<FlightDto> _lst)
+        public List<ResultModel> Changedetectionstatus(List<FlightDto> _lstflight)//DateTime departure_time, Int64 airline_id)
         {
-            DateTime Lastsevendays = departure_time.AddDays(-7);
-            DateTime Nextsevendays = departure_time.AddDays(7);
-            string NextMin = departure_time.AddMinutes(30).ToLongTimeString();
-            string LastMin = departure_time.AddMinutes(-30).ToLongTimeString();
+            try
+            {
+                var result = new List<ResultModel>();
+                DateTime Lastsevendays = new DateTime();
+                DateTime Nextsevendays = new DateTime();
+                var NextMin = new DateTime();
+                var LastMin = new DateTime();
+                var lstDepartureTimeLastweek = new List<Flight>();
+                var lstDepartureTimeNextweek = new List<Flight>();
+                int batchSize = _lstflight.Count();
+                int pageNumber = 1;
+                bool hasMoreRecords = true;
+                while (hasMoreRecords)
+                {
+                    var lst = mydbcontext.Flights
+                    .AsNoTracking()
+                    .OrderBy(e => e.flight_id)
+                    .Skip((pageNumber - 1) * batchSize)
+                    .Take(batchSize)
+                    .ToList();
+                    if (lst.Any())
+                    {
+                        _lstflight.ForEach(x =>
 
-            var CountDepartureTimeLastweek = _lst.Where(cdt => cdt.departure_time == Lastsevendays)
-                                    .ToList()
-                                    .Where(cdt => cdt.airline_id == airline_id && (cdt.departure_time.ToLongTimeString() == NextMin || cdt.departure_time.ToLongTimeString() == LastMin)).Count();
+                        {
+                            Lastsevendays = x.departure_time.AddDays(-7);
+                            Nextsevendays = x.departure_time.AddDays(7);
+                            NextMin = x.departure_time.AddMinutes(30);
+                            LastMin = x.departure_time.AddMinutes(-30);
+                            var airline_id = x.airline_id;
 
-            var CountDepartureTimeNextweek = _lst.Where(cdt => cdt.departure_time == Nextsevendays)
-                                    .ToList()
-                                    .Where(cdt => cdt.airline_id == airline_id && (cdt.departure_time.ToLongTimeString() == NextMin || cdt.departure_time.ToLongTimeString() == LastMin)).Count();
+                            lstDepartureTimeLastweek = lst.Where(e => e.departure_time == Lastsevendays &&
+                                                    e.airline_id == airline_id &&
+                                                    (e.departure_time >= LastMin ||
+                                                    e.departure_time <= NextMin)).ToList();
 
-            if (CountDepartureTimeLastweek == 0)
-                return "New flights";
-            else if (CountDepartureTimeNextweek == 0)
-                return "Discontinued flights";
-            else
-                return "regular";
+
+                            lstDepartureTimeNextweek = lst.Where(e => e.departure_time == Nextsevendays &&
+                                                   e.airline_id == airline_id &&
+                                                   (e.departure_time >= LastMin ||
+                                                   e.departure_time <= NextMin)).ToList();
+
+                            pageNumber++;
+                        });
+                    }
+                    else
+                    {
+                        hasMoreRecords = false;
+                    }
+                }
+                if (lstDepartureTimeNextweek.Count == 0)
+                {
+                    result = lstDepartureTimeLastweek.Select(model => new ResultModel
+                    {
+                        flight_id = model.flight_id,
+                        origin_city_id = model.route.origin_city_id,
+                        destination_city_id = model.route.destination_city_id,
+                        arrival_time = model.arrival_time,
+                        airline_id = model.airline_id,
+                        departure_time = model.departure_time,
+                        status = "New flights"
+                    }).ToList();
+
+                }
+
+                else if (lstDepartureTimeNextweek.Count() == 0)
+                {
+                    result = lstDepartureTimeLastweek.Select(model => new ResultModel
+                    {
+                        flight_id = model.flight_id,
+                        origin_city_id = model.route.origin_city_id,
+                        destination_city_id = model.route.destination_city_id,
+                        arrival_time = model.arrival_time,
+                        airline_id = model.airline_id,
+                        departure_time = model.departure_time,
+                        status = "Discontinued flights"
+                    }).ToList();
+
+                }
+
+
+                else
+                {
+                    result = lstDepartureTimeLastweek.Select(model => new ResultModel
+                    {
+                        flight_id = model.flight_id,
+                        origin_city_id = model.route.origin_city_id,
+                        destination_city_id = model.route.destination_city_id,
+                        arrival_time = model.arrival_time,
+                        airline_id = model.airline_id,
+                        departure_time = model.departure_time,
+                        status = "regular flights"
+                    }).ToList();
+
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
